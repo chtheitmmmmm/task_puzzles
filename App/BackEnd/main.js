@@ -8,6 +8,7 @@ const userDBPath   = path.resolve(__dirname, 'UserDB.json')
 let   userDB       = JSON.parse(fs.readFileSync(userDBPath).toString(dbEncoding))
 
 const prepareDocs  = {
+    401:  fs.readFileSync(path.resolve(frontEndRoot, '401.html')),
     403:  fs.readFileSync(path.resolve(frontEndRoot, '403.html')),
     404:  fs.readFileSync(path.resolve(frontEndRoot, '404.html')),
     405:  fs.readFileSync(path.resolve(frontEndRoot, '405.html')),
@@ -60,13 +61,16 @@ const server = http.createServer(async (req, res) => {
             req.on('end', async () => {
                 try {
                     body = JSON.parse(body)
-                    console.log(body)
                     if (body["account"] && body["password"]) {
                         if (userDB[body["account"]]) {
-                            res.write(prepareDocs.main.toString()
-                                .replaceAll('{{account}}', body["account"])
-                                .replaceAll('{{Welcome}}', '欢迎回来')
-                            )
+                            if (userDB[body["account"]] === body["password"]) {
+                                res.write(prepareDocs.main.toString()
+                                    .replaceAll('{{account}}', body["account"])
+                                    .replaceAll('{{Welcome}}', '欢迎回来')
+                                )
+                            } else {
+                                prepareDocs.errResponse(res, 401)
+                            }
                         } else {
                             userDB[body["account"]] = body["password"]
                             res.write(prepareDocs.main.toString()

@@ -212,23 +212,9 @@ theApp.appendChild(theClickCounter);
 
 我们接下来做一个简单的Web表单，要求用户输入用户名和密码，然后将该数据发送给服务器（我们即将用`NodeJS`来编写这个服务器），若为新用户就将该用户发送来的数据保存在文件里，前端显示“注册成功”，否则就显示“欢迎回来”。
 
-抛弃之前level 1、level 2中的成果，让我们现在新建一个`App`文件夹
-```yaml
-App
-```
-再创建两个文件夹`FrontEnd`和`BackEnd`
-```yaml
-App
-   FrontEnd
-   BackEnd
-```
-顾名思义，`FrontEnd`存放我们的浏览器前端代码文件，而`BackEnd`存放我们的后端服务器源代码。
+这里我们就不一一带大家过了。 所有源代码在[GitHub仓库](https://github.com/chtheitmmmmm/task_puzzles)可得！
 
-我们先开发后端
-
-在
-
-<div style="font-weight: bolder; color: rgba(163, 100, 44); font-family: serif; border: dotted pink">注意，要想挑战本 Level 所需的基础知识水平范围可以很广泛。如果只是跟随本教程，那么至少需要懂<code>NodeJS</code>，但后端服务的构建可以是多种多样的，常见的包括
+<div style="font-weight: bolder; color: rgba(163, 100, 44); font-family: serif; border: dotted pink">注意，要想挑战本 Level 所需的基础知识水平范围可以很广泛。如果只是跟随本教程，那么至少需要懂<code>NodeJS</code>，<code>HTTP</code>但后端服务的构建可以是多种多样的，常见的包括
    <ul>
       <li>理论基础
          <ul>
