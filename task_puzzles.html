@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>TaskPuzzle</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="tic-2023-课题设计">TIC 2023 课题设计</h1>
+<address style="text-align: right;">
+——21级-宣传部-程闽
+</address>
+<ul>
+<li><a href="#题目">题目</a></li>
+<li><a href="#参考">参考</a></li>
+<li><a href="#附录">附录</a>
+<ul>
+<li><a href="#editidx">A. 编辑代码</a></li>
+<li><a href="#openidx">B. 浏览器打开<code>index.html</code></a></li>
+</ul></li>
+</ul>
+<p>本次课题设计准备了<span
+class="math inline">1</span>道关于Web的题目，准备好了吗，发车！</p>
+<h2 id="题目">题目</h2>
+<ol type="1">
+<li><a href="#Web">Web软件服务</a>
+<ol type="1">
+<li><a href="#Web1">Level 1</a></li>
+<li><a href="#Web2">Level 2</a></li>
+<li><a href="#Web3">Level 3</a></li>
+</ol></li>
+</ol>
+###
+<div id="Web">
+
+</div>
+<p>Web软件服务 #### 简要介绍
+<strong>Web</strong>是已成为当今世界上最大的<strong>应用程序分发平台</strong>，各大企业、组织、机构在这里展现自己、提供服务。实际上现代人几乎每天都在接触Web——只要你打开浏览器，你所看到的页面就是一个Web页面。学习Web以及其相关的技术已几乎成为每位程序员必备的技能。</p>
+####
+<div id="WebGetStart">
+
+</div>
+<p>入门指引 请允许我来带领大家简单入门Web领域
+首先在任意位置（比如<code>D:\Codes</code>）新建一个文件夹，就叫<code>Web</code>吧，现在我们的文件系统结构是</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="at">Web</span></span></code></pre></div>
+<p>然后在里面创建一个文件，叫<code>index.html</code></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="at">Web</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="kw">-</span><span class="at"> index.html</span></span></code></pre></div>
+<p><a
+href="#editidx">打开</a><code>index.html</code>，在里面编写以下代码并保存</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;html&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>   <span class="kw">&lt;head&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;meta</span> <span class="er">charset</span><span class="ot">=</span><span class="st">&quot;utf-8&quot;</span><span class="kw">/&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;title&gt;</span>Hello Web!<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>   <span class="kw">&lt;/head&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>   <span class="kw">&lt;body&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;h1&gt;</span>Hello Web!<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>   <span class="kw">&lt;/body&gt;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+将<code>index.html</code>在任意浏览器<a
+href="#openidx">打开</a>。完成一切之后如果你在浏览器看到：
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>
+Hello Web!
+</title>
+</head>
+<body>
+<h1 style="background: white; color: black; border: 1px black solid">
+Hello Web!
+</h1>
+</body>
+</html>
+<p>那么恭喜，这是你的第一个Web页面！如果你产生兴趣了的话，请容我继续介绍这道题目的细节！</p>
+<p>本题目有三个<strong>Level</strong>，对应三个难度层级。如果你基础比较扎实，你可以挑战最高难度。如果你基础比较薄弱，你也应该有足够的时间学习相关知识并完成<a
+href="#Web1">Level 1</a>。重在参与，希望大家都能有所学！</p>
+####
+<div id="Web1">
+
+</div>
+Level 1
+<div style="text-align: center; font-size: 1.2em">
+Tags: <code>静态页面</code> <code>HTML5</code> <code>CSS3</code>
+</div>
+<p>所谓<strong>静态页面</strong>，不是说页面一定是静止的，因为<strong>CSS3</strong>也允许制作动画。但是不能根据用户的不同以及用户的行为来动态调整<strong>HTML</strong>文档的结构。简单理解来说就是，无论什么用户访问你的页面，除了可能因为浏览器对Web标准支持有少数的不统一之外，大体上应该都相同。我们不能根据用户身份来提供定制的内容，或者让用户提交ta的信息来注册账号等等。比如我们刚才例子中的就是一个最简单的<strong>HTML</strong>静态页面。</p>
+<p>在这里我们提到了<abbr><strong>HTML</strong></abbr>和<abbr><strong>CSS3</strong></abbr>，它们的全称分别是<em>HyperText
+Markup Language</em>（超文本标记语言）和<em>Cascading Style
+Sheet</em>（层叠样式表），它们是用来编写一个静态页面需要学习的语言，文件后缀分别是<code>.html</code>（或<code>.htm</code>）和<code>.css</code>。和C语言等编程语言不同，你只需把html文件在浏览器打开，浏览器会直接<strong>解析</strong>你的HTML代码并<strong>渲染</strong>成一个网页。HTML是一个网页的骨架，而CSS就是一个网页的皮肤。我们接着<a
+href="#WebGetStart">入门指引</a>里的例子，来体会一下CSS的魅力。</p>
+<p>在指引中，我们的目录结构是这样的</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="at">Web</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="kw">-</span><span class="at"> index.html</span></span></code></pre></div>
+<p>接下来我们创建一个CSS文件，就叫<code>index.css</code></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="at">Web</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="kw">-</span><span class="at"> index.html</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="kw">-</span><span class="at"> index.css</span></span></code></pre></div>
+<p><a href="#editidx">打开</a><code>index.css</code>，在里面编写</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#app</span> {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span>: <span class="dv">flex</span><span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">align-items</span>: <span class="dv">center</span><span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">justify-content</span>: <span class="dv">center</span><span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">background</span>: <span class="cn">plum</span><span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">color</span>: <span class="cn">blue</span><span class="op">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">height</span>: <span class="dv">100</span><span class="dt">vh</span><span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="pp">#app</span> h1 {</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">transition</span>: <span class="dv">1</span><span class="dt">s</span><span class="op">;</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="pp">#app</span> h1<span class="in">:hover</span> {</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">padding-top</span>: <span class="dv">50</span><span class="dt">vh</span><span class="op">;</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">transform</span>: rotateZ(<span class="dv">1</span><span class="dt">turn</span>)<span class="op">;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>保存文件。</p>
+<p><a
+href="#editidx">打开</a><code>index.html</code>，现在我们需要将代码改写成</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;html&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>   <span class="kw">&lt;head&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;meta</span> <span class="er">charset</span><span class="ot">=</span><span class="st">&quot;utf-8&quot;</span><span class="kw">/&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;title&gt;</span>Hello Web!<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;link</span> <span class="er">rel</span><span class="ot">=</span><span class="st">&quot;stylesheet&quot;</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;index.css&quot;</span> <span class="er">type</span><span class="ot">=</span><span class="st">&quot;text/css&quot;</span><span class="kw">/&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>   <span class="kw">&lt;/head&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>   <span class="kw">&lt;body&gt;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;div</span> <span class="er">id</span><span class="ot">=</span><span class="st">&quot;app&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>         <span class="kw">&lt;h1&gt;</span>Hello Web!<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>   <span class="kw">&lt;/body&gt;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+<p>这里我们用一个<code>&lt;link&gt;</code>引入了我们的<code>CSS</code>文件，现在<a
+href="#openidx">在浏览器打开</a>，我们可以看到了一些美丽的颜色，将鼠标放在<code>Hello Web!</code>上面，我们还会发现文本在旋转！很有意思，对吧！然而这只是Web页面的Level
+1。建议你可以系统学习HTML和CSS，来创造出更好看的页面！</p>
+####
+<div id="Web2">
+
+</div>
+Level 2
+<div style="text-align: center; font-size: 1.2em">
+Tags: <code>动态页面</code> <code>HTML5</code> <code>CSS3</code>
+<code>JavaScript</code>
+</div>
+<p><strong>JavaScript</strong>是一种编程语言，最初发明它的时候是为了使一些原本在<strong>服务器端</strong>（server）处理的工作转移到前端，从而减少网络带宽损耗，因而他的开发者（网景公司）最开始只用了十天时间。然而目前已经成为绝大多数Web应用的必备部件，是它赋予了Web页面以活力。现在我们来初步体验一下<strong>JavaScript</strong>的神奇之处。</p>
+<p>如果你完成了<a href="#Web1">Level
+1</a>的指导，你应该有了以下文件系统结构</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="at">Web</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="kw">-</span><span class="at"> index.html</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="kw">-</span><span class="at"> index.css</span></span></code></pre></div>
+<p>让我们继续添加JavaScript！首先创建一个js文件，就叫<code>index.js</code></p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="at">Web </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="kw">-</span><span class="at"> index.html</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="kw">-</span><span class="at"> index.css</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="kw">-</span><span class="at"> index.js</span></span></code></pre></div>
+<p>在其中输入以下代码</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> theButton       <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">&#39;button&#39;</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> theClickCounter <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">&#39;div&#39;</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> theTitle        <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">&#39;#app h1&#39;</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> theApp          <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&#39;app&#39;</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> cnt <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>theButton<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">&#39;style&#39;</span><span class="op">,</span> <span class="st">&#39;with: 10em; background: green; color: white; font-size: 3em&#39;</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>theButton<span class="op">.</span><span class="at">innerText</span> <span class="op">=</span> <span class="st">&quot;点我&quot;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">titleBigger</span>() {</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> fontSize <span class="op">=</span> theTitle<span class="op">.</span><span class="fu">computedStyleMap</span>()<span class="op">.</span><span class="fu">get</span>(<span class="st">&#39;font-size&#39;</span>)<span class="op">;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    fontSizeString <span class="op">=</span> (fontSize<span class="op">.</span><span class="at">value</span> <span class="op">*</span> <span class="fl">1.1</span>)<span class="op">.</span><span class="fu">toString</span>() <span class="op">+</span> fontSize<span class="op">.</span><span class="at">unit</span><span class="op">;</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(fontSizeString)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    theTitle<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">fontSize</span> <span class="op">=</span> fontSizeString</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">dir</span>(theTitle)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    cnt<span class="op">++;</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    theClickCounter<span class="op">.</span><span class="at">innerText</span> <span class="op">=</span> <span class="st">&quot;You clicked: &quot;</span> <span class="op">+</span> cnt<span class="op">.</span><span class="fu">toString</span>() </span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>theButton<span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">&#39;click&#39;</span><span class="op">,</span> titleBigger)<span class="op">;</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>theApp<span class="op">.</span><span class="fu">appendChild</span>(theButton)<span class="op">;</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>theApp<span class="op">.</span><span class="fu">appendChild</span>(theClickCounter)<span class="op">;</span></span></code></pre></div>
+<p>将<code>index.html</code>改为</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;html&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>   <span class="kw">&lt;head&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;meta</span> <span class="er">charset</span><span class="ot">=</span><span class="st">&quot;utf-8&quot;</span><span class="kw">/&gt;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;title&gt;</span>Hello Web!<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;link</span> <span class="er">rel</span><span class="ot">=</span><span class="st">&quot;stylesheet&quot;</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;index.css&quot;</span> <span class="er">type</span><span class="ot">=</span><span class="st">&quot;text/css&quot;</span><span class="kw">/&gt;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span> <span class="er">src</span><span class="ot">=</span><span class="st">&quot;index.js&quot;</span> <span class="er">async</span> <span class="er">defer</span><span class="kw">&gt;&lt;/script&gt;</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>   <span class="kw">&lt;/head&gt;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>   <span class="kw">&lt;body&gt;</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;div</span> <span class="er">id</span><span class="ot">=</span><span class="st">&quot;app&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>         <span class="kw">&lt;h1&gt;</span>Hello Web!<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>      <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>   <span class="kw">&lt;/body&gt;</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+<p>将<code>index.css</code>改为</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#app</span> {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span>: <span class="dv">flex</span><span class="op">;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">flex-direction</span>: <span class="dv">column</span><span class="op">;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">align-items</span>: <span class="dv">center</span><span class="op">;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">justify-content</span>: <span class="dv">center</span><span class="op">;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">background</span>: <span class="cn">plum</span><span class="op">;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">color</span>: <span class="cn">blue</span><span class="op">;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">height</span>: <span class="dv">100</span><span class="dt">vh</span><span class="op">;</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="pp">#app</span> h1 {</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">transition</span>: <span class="dv">1</span><span class="dt">s</span><span class="op">;</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="pp">#app</span> h1<span class="in">:hover</span> {</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">padding-top</span>: <span class="dv">50</span><span class="dt">vh</span><span class="op">;</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">transform</span>: rotateZ(<span class="dv">1</span><span class="dt">turn</span>)<span class="op">;</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>再<a
+href="#openidx">打开</a><code>index.html</code>，应该就能看到一个绿色的按钮了，点击它，<code>Hello Web!</code>将被放大！注意到这个过程是动态的，因为我们的HTML中原本没有那个按钮（按钮的HTML应该包含<code>&lt;button&gt;</code>，但是却没有。这是用JavaScript动态生成的，而非静态编码到HTML文档中的。而且点击数的统计也不是静态写在HTML中的，只有JS能做到这一点。深入学习JavaScript，你可以尝试制作交互性很强的Web页面了！</p>
+<div
+style="font-weight: bolder; color: rgba(163, 100, 44); font-family: serif; border: dotted pink">
+<p>如果你学习了JavaScript，可以不用着急过渡到<a href="Web3">level
+3</a>，因为level 2
+已经几乎是前端的一切了（除了Ajax）。JavaScript相关的知识非常丰富，你可以尝试学习<code>TypeScript</code>、<code>SCSS</code>、<code>BootStrap</code>、<code>Three.js</code>、<code>NodeJS/NPM</code>、<code>Webpack</code>、<code>Vue.js</code>等大量的JavaScript技术。</p>
+</div>
+####
+<div id="Web3">
+
+</div>
+level 3
+<div style="text-align: center; font-size: 1.2em">
+Tags: <code>动态页面</code> <code>HTML5</code> <code>CSS3</code>
+<code>JavaScript</code><code>服务器后端</code>
+</div>
+<p>如果只用<strong>HTML</strong>、<strong>CSS</strong>、<strong>JavaScript</strong>的话，只能做出单机应用，无法创建出任何与用户注册登录等类似的任何联网应用，这就好像你去某个单机游戏的官网下载了游戏，接下来再也不需要网络服务了。通过架设服务器和后端服务，我们可以用JavaScript为形形色色的应用程序构建Web前端页面，包括在线多人网络游戏（如火线精英）、在线刷短视频（如抖音官网）、在线购物、各种在线工具、云计算、云存储等海量服务。</p>
+<p>我们接下来做一个简单的Web表单，要求用户输入用户名和密码，然后将该数据发送给服务器（我们即将用<code>NodeJS</code>来编写这个服务器），若为新用户就将该用户发送来的数据保存在文件里，前端显示“注册成功”，否则就显示“欢迎回来”。</p>
+<p>这里我们就不一一带大家过了。 <a href="task_puzzle.tar.gz">点击下载源代码</a></p>
+<div style="font-weight: bolder; color: rgba(163, 100, 44); font-family: serif; border: dotted pink">
+注意，要想挑战本 Level
+所需的基础知识水平范围可以很广泛。如果只是跟随本教程，那么至少需要懂<code>NodeJS</code>，<code>HTTP</code>但后端服务的构建可以是多种多样的，常见的包括
+<ul>
+<li>
+理论基础
+<ul>
+<li>
+计算机网络
+</li>
+<li>
+HTTP/HTTPS
+</li>
+<li>
+异步编程
+</li>
+</ul>
+<pre><code>  &lt;/li&gt;
+  &lt;li&gt;Web服务器
+     &lt;ul&gt;
+        &lt;li&gt;Apache&lt;/li&gt;
+        &lt;li&gt;Nginx&lt;/li&gt;
+        &lt;li&gt;Tomcat&lt;/li&gt;
+     &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Web框架
+     &lt;ul&gt;
+        &lt;li&gt;ASP.NET&lt;/li&gt;
+        &lt;li&gt;Django&lt;/li&gt;
+        &lt;li&gt;PHP&lt;/li&gt;
+     &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;数据库
+     &lt;ul&gt;
+        &lt;li&gt;Mongodb&lt;/li&gt;
+        &lt;li&gt;MySQL&lt;/li&gt;
+        &lt;li&gt;NOSQL&lt;/li&gt;
+     &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Java
+     &lt;ul&gt;
+        &lt;li&gt;SpringBoot&lt;/li&gt;
+        &lt;li&gt;Hadoop&lt;/li&gt;
+     &lt;/ul&gt;
+  &lt;/li&gt;</code></pre>
+</ul>
+</div>
+<h2 id="参考">参考</h2>
+<p>建议从入门或高级指南学起，不要一开始就学终极指南 - 入门指南 -
+菜鸟教程（完全免费） - <a
+href="https://www.runoob.com/html/html-tutorial.html">HTML</a> - <a
+href="https://www.runoob.com/css/css-tutorial.html">CSS</a> - <a
+href="https://www.runoob.com/js/js-tutorial.html">JavaScript</a> - <a
+href="https://www.runoob.com/php/php-tutorial.html">PHP</a> - <a
+href="https://www.runoob.com/nodejs/nodejs-tutorial.html">NodeJS</a> -
+W3C School（需要花钱解锁高级内容） - <a
+href="https://www.w3schools.com/html/default.asp">HTML</a> - <a
+href="https://www.w3schools.com/css/default.asp">CSS</a> - <a
+href="https://www.w3schools.com/js/default.asp">JavaScript</a> - <a
+href="https://www.w3schools.com/js/default.asp">PHP</a> - 高级指南 -
+MDN文档 - <a
+href="https://developer.mozilla.org/zh-CN/docs/Web/HTML">HTML</a> - <a
+href="https://developer.mozilla.org/zh-CN/docs/Web/CSS">CSS</a> - <a
+href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">JavaScript</a>
+- <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP">HTTP</a> -
+<a href="https://www.php.net/">PHP官网</a> - 终极指南 -
+Web规范（可能需翻墙，否则很慢） - <a
+href="https://www.w3.org/standards/webdesign/htmlcss">HTML &amp; CSS</a>
+- <a href="https://www.w3.org/standards/webdesign/script">JavaScript Web
+APIs</a> - <a
+href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">EcmaScript规范</a>
+- <a href="https://www.rfc-editor.org/rfc/rfc2616">HTTP RFC</a></p>
+<h2 id="附录">附录</h2>
+###
+<div id="editidx">
+
+</div>
+<p>A. 编辑代码
+编辑代码需要一个普通的文本编辑器，而非<s><code>Word</code></s>这种富文本编辑器。对与程序员来说，通常使用<code>IDE</code>（Integreted
+Developing Environment，集成开发环境）或各种编辑器，免费好用的当属<a
+href="https://code.visualstudio.com/">Visual Studio
+Code</a>，它是跨平台的，所有系统都可用。其他的如<a
+href="https://www.sublimetext.com/">Sublime Text</a>（跨平台）、<a
+href="https://coteditor.com/">CotEditor</a>（MacOS），<a
+href="https://www.jetbrains.com/webstorm/">WebStorm</a>（跨平台）、<a
+href="https://www.vim.org/">vim</a>（MacOS、Linux）等。</p>
+###
+<div id="openidx">
+
+</div>
+<p>B. 浏览器打开<code>index.html</code></p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">操作系统</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">打开方式</td>
+<td>有以下几种</td>
+<td>有以下几种</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
