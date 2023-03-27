@@ -1,0 +1,19 @@
+#app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: plum;
+    color: blue;
+    height: 100vh;
+}
+
+#app h1 {
+    text-align: center;
+    transition: 1s;
+}
+
+#app h1:hover {
+    padding-top: 50vh;
+    transform: rotateZ(1turn);
+}
